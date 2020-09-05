@@ -4,7 +4,7 @@ function SearchForm(){
 
   return (
     <form>
-      <input type="text" placeholder="https://www.linkedin.com/in/username"/>
+      <input type="text" placeholder="https://www.linkedin.com/in/username" />
       <button type="submit">Submit</button>
     </form>
   )
