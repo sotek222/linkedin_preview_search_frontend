@@ -5,13 +5,21 @@ import React from 'react';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
 
-
 import './App.css';
 
 function App() {
+
+  const getLinkedInPreview = (url) => {
+    // HERE WE VALIDATE THE URL
+
+    // THEN WE WILL MAKE A FETCH REQUEST TO THE SERVER TO GET THE PREVIEW
+  };
+
+
+
   return (
     <div>
-      <SearchForm />
+      <SearchForm getLinkedInPreview={getLinkedInPreview} />
       <SearchResults />
     </div>
   );
