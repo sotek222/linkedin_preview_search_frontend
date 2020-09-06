@@ -9,25 +9,26 @@ import spinner from '../images/spinner.gif';
  * @param {Object} props.searchResult - an object containing the search result data from the API
  * @param {boolean} props.isLoading - a boolean indicating the state of if the coponent data is loading
  * @param {boolean} props.isValidUrl - a boolean indicating the state of if the input url is valid or not
+ * @param {boolean} props.isError - a boolean indicating the state of if server returned the proper URL data
  */
-const SearchResults = ({ searchResult, isLoading, isValidUrl }) => {
+const SearchResults = ({ searchResult, isLoading, isValidUrl, isError }) => {
 
   /**
    * renders the proper jsx based on the input from props
    */
   const renderSearchResults = () => {
     // render an explanation and error message if the user inputs a bad URL
-    if (!isValidUrl){
+    if (!isValidUrl || isError) {
       return (
-        <div className="search-results-container__invalid-url-message">
+        <div className="search-results-container__error-message">
           The URL you entered was not valid. Please input a valid url.
           <div>(Example: https://www.linkedin.com/in/username)</div>
         </div>
       )
-    }
+    };
 
     // render the data pulled from the API
-    if(searchResult && !isLoading){
+    if (searchResult && !isLoading) {
       return (
         <>
           <div className="search-results-container__title" >{searchResult.title}</div>
@@ -38,14 +39,14 @@ const SearchResults = ({ searchResult, isLoading, isValidUrl }) => {
         </>
       );
       // render the loader while we wait for results
-    } else if(isLoading && !searchResult) {
+    } else if (isLoading && !searchResult) {
       return <img className="search-results-container__loader" src={spinner} alt="loader" />
     } else {
       // default rendering when no data is passed in at all
       return <div className="search-results-container__pre-search-text" >Linkedin Preview will display here...</div>
-    }
+    };
   };
-  
+
   return <div className="search-results-container">{renderSearchResults()}</div>;
 };
 

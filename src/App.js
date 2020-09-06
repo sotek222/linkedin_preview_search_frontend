@@ -24,31 +24,47 @@ const App = () => {
   // stores the state of whether or not the url entered was correct
   const [isValidUrl, setIsValidUrl] = useState(true);
 
+  const [isError, setIsError] = useState(false);
+
+  /**
+   * resets the variables relating to searching
+   */
+  const resetSearch = () => {
+    // cleans up from any previous invalid URL entrys, to reset the display.
+    setIsValidUrl(true);
+    // begins setting the loader so the spinner gif will display
+    setIsLoading(true);
+    // resets the error variable 
+    setIsError(false);
+  }
+
+
   /**
    * gets the linkedin preview data or otherwise sets the state of the isValidUrl variable
    * @param {string} url - a string representing a URL inputed from the user
    */
-  const getLinkedInPreview = (url) => { 
+  const getLinkedInPreview = (url) => {
     // Checks if the url that is inputted meets the 
     // requirements and is valid
-    if(validateUrl(url)){
-      // cleans up from any previous invalid URL entrys, to reset the display.
-      setIsValidUrl(true);
-      // begins setting the loader so the spinner gif will display
-      setIsLoading(true);
-
+    if (validateUrl(url)) {
+      resetSearch();
       // makes a POST request to the server with 
       // the users input url inserted into the body
       postLinkedInURL(url)
-      .then(searchResultObject => {
-        // searchResultObject = {title: "string", link: "string", snippt: "string"}
+        .then(searchResultObject => {
+          // searchResultObject = {title: "string", link: "string", snippt: "string"}
 
-        // we set the search results to passed down as props to SearchResults component
-        setSearchResult(searchResultObject);
-        // turn the state of the loader off to remove the loading spinner from the component
-        setIsLoading(false);
-      })
-      .catch(err => console.error("THERE WAS AN ERROR: ", err));
+          // we set the search results to passed down as props to SearchResults component
+          setSearchResult(searchResultObject);
+          // turn the state of the loader off to remove the loading spinner from the component
+          setIsLoading(false);
+        })
+        .catch(err => {
+          // turn the state of the loader off to remove the loading spinner
+          setIsLoading(false);
+          // set the state of the error to true so our search result component can render the proper results
+          setIsError(true)
+        });
     } else {
       // Sets the state of invalid URL so we can show the user that they entered 
       // an invalid URL
@@ -58,10 +74,10 @@ const App = () => {
 
   return (
     <>
-      <Header/>
+      <Header />
       <div className="main-container">
         <SearchForm getLinkedInPreview={getLinkedInPreview} />
-        <SearchResults searchResult={searchResult} isLoading={isLoading} isValidUrl={isValidUrl} />
+        <SearchResults searchResult={searchResult} isLoading={isLoading} isValidUrl={isValidUrl} isError={isError} />
       </div>
     </>
   );
