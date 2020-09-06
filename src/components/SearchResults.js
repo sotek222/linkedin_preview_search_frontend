@@ -1,9 +1,12 @@
 import React from 'react';
 
-function SearchResults({ searchResult }){
+import spinner from '../images/spinner.gif';
+
+
+function SearchResults({ searchResult, isLoading }){
 
   const renderSearchResults = () => {
-    if(searchResult){
+    if(searchResult && !isLoading){
       return (
         <div>
           <div>{searchResult.title}</div>
@@ -11,13 +14,12 @@ function SearchResults({ searchResult }){
           <div><p>{searchResult.snippet}</p></div>
         </div>
       );
+    } else if(isLoading && !searchResult) {
+      return <img src={spinner} alt="loader" />
     } else {
-      return (
-        <div></div>
-      )
+      return <div>Search Results will go here</div>
     }
-  }
-  
+  };
   
   return renderSearchResults();
 };
