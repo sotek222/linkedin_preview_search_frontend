@@ -6,15 +6,15 @@ import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
 
-// Utility Imports
+// Utility && Service Imports
 import validateUrl from './util/validator';
+import postLinkedInURL from './services/apiCommunicator';
 
 // Style Imports
 import './App.css';
 
+
 function App() {
-  // The endpoint of the server for requesting linkedin previews
-  const API_URL = 'http://localhost:3001/search';
   // used to store the response from the server
   const [searchResult, setSearchResult] = useState(null);
 
@@ -22,36 +22,37 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   // stores the state of whether or not the url entered was correct
-  const [isUrlValid, setIsUrlValid] = useState(true);
+  const [isValidUrl, setIsValidUrl] = useState(true);
 
+  /**
+   * gets the linkedin preview data or otherwise sets the state of the isValidUrl variable
+   * @param {string} url - a string representing a URL inputed from the user
+   */
   const getLinkedInPreview = (url) => { 
-
     // Checks if the url that is inputted meets the 
     // requirements and is valid
     if(validateUrl(url)){
       // cleans up from any previous invalid URL entrys, to reset the display.
-      setIsUrlValid(true);
+      setIsValidUrl(true);
       // begins setting the loader so the spinner gif will display
       setIsLoading(true);
 
-      fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({url})
-      })
-      .then(response => response.json())
+      // makes a POST request to the server with 
+      // the users input url inserted into the body
+      postLinkedInURL(url)
       .then(searchResultObject => {
+        // searchResultObject = {title: "string", link: "string", snippt: "string"}
+
+        // we set the search results to passed down as props to SearchResults component
         setSearchResult(searchResultObject);
+        // turn the state of the loader off to remove the loading spinner from the component
         setIsLoading(false);
       })
       .catch(err => console.error("THERE WAS AN ERROR: ", err));
     } else {
       // Sets the state of invalid URL so we can show the user that they entered 
       // an invalid URL
-      setIsUrlValid(false);
+      setIsValidUrl(false);
     }
   };
 
@@ -60,7 +61,7 @@ function App() {
       <Header/>
       <div className="main-container">
         <SearchForm getLinkedInPreview={getLinkedInPreview} />
-        <SearchResults searchResult={searchResult} isLoading={isLoading} isUrlValid={isUrlValid} />
+        <SearchResults searchResult={searchResult} isLoading={isLoading} isValidUrl={isValidUrl} />
       </div>
     </>
   );
