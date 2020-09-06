@@ -8,8 +8,9 @@ function SearchResults({ searchResult, isLoading, isUrlValid }){
   const renderSearchResults = () => {
     if(!isUrlValid){
       return (
-        <div>
-          The URL you entered was not valid. Please re-enter a valid url.
+        <div className="search-results-container__invalid-url-message">
+          The URL you entered was not valid. Please input a valid url.
+          <div>(Example: https://www.linkedin.com/in/username)</div>
         </div>
       )
     }
@@ -18,7 +19,7 @@ function SearchResults({ searchResult, isLoading, isUrlValid }){
       return (
         <>
           <div className="search-results-container__title" >{searchResult.title}</div>
-          <a className="search-results-container__link" href={searchResult.link}>See their full profile on Linkedin</a>
+          <a className="search-results-container__link" href={searchResult.link} target="_blank">See their full profile on Linkedin</a>
           <div className="search-results-container__snippet">
             <p className="search-results-container__snippet-text">{searchResult.snippet}</p>
           </div>

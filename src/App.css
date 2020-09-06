@@ -97,3 +97,18 @@
 .search-results-container__snippet-text {
   font-size: 1.3em;
 }
+
+.search-results-container__invalid-url-message {
+  grid-column: 1 / 4;
+  grid-row: 1 / 4;
+  justify-self: center;
+  align-self: center;
+  font-size: 2em;
+  text-align: center;
+  color: red;
+  text-shadow: 1px 1px black;
+}
+
+.search-results-container__invalid-url-message > div {
+  font-size: 50%;
+}
