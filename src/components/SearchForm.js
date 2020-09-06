@@ -17,9 +17,9 @@ function SearchForm({ getLinkedInPreview }){
 
 
   return (
-    <form onSubmit={handleSubmit} >
-      <input type="text" placeholder="https://www.linkedin.com/in/username" value={searchInputValue}  onChange={handleSearchInputChange}/>
-      <button type="submit">See Preview</button>
+    <form className="search-form" onSubmit={handleSubmit} >
+      <input className="search-form__input" type="text" placeholder="https://www.linkedin.com/in/username" value={searchInputValue}  onChange={handleSearchInputChange}/>
+      <button className="search-form__button" type="submit">See Preview</button>
     </form>
   )
 };

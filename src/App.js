@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 // Component Imports
+import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
 
@@ -45,13 +46,14 @@ function App() {
     }
   };
 
-
-
   return (
-    <div>
-      <SearchForm getLinkedInPreview={getLinkedInPreview} />
-      <SearchResults searchResult={searchResult} isLoading={isLoading} />
-    </div>
+    <>
+      <Header />
+      <div className="main-container">
+        <SearchForm getLinkedInPreview={getLinkedInPreview} />
+        <SearchResults searchResult={searchResult} isLoading={isLoading} />
+      </div>
+    </>
   );
 }
 
