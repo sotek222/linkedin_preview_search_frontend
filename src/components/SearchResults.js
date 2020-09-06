@@ -10,7 +10,7 @@ import spinner from '../images/spinner.gif';
  * @param {boolean} props.isLoading - a boolean indicating the state of if the coponent data is loading
  * @param {boolean} props.isValidUrl - a boolean indicating the state of if the input url is valid or not
  */
-function SearchResults({ searchResult, isLoading, isValidUrl }){
+const SearchResults = ({ searchResult, isLoading, isValidUrl }) => {
 
   /**
    * renders the proper jsx based on the input from props

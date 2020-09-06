@@ -5,7 +5,7 @@ import React, { useState } from 'react';
  * @param {Object} props - A property object passed down from App.js
  * @param {function} props.getLinkedInPreview - A function for handling user input after clicking submit
  */
-function SearchForm({ getLinkedInPreview }){
+const SearchForm = ({ getLinkedInPreview }) => {
   // used to store the form input value, and update the state of the input.
   const [searchInputValue, setSearchInputValue] = useState("");
 
@@ -18,7 +18,7 @@ function SearchForm({ getLinkedInPreview }){
 
   /**
    * handles the submit event and cleans up the form
-   * @param {*} event - An object that is used to override the default submit behavior
+   * @param {Object} event - An object that is used to override the default submit behavior
    */
   const handleSubmit = (event) => {
     // prevents the form from making a post request and refreshing the page

@@ -14,7 +14,7 @@ import postLinkedInURL from './services/apiCommunicator';
 import './App.css';
 
 
-function App() {
+const App = () => {
   // used to store the response from the server
   const [searchResult, setSearchResult] = useState(null);
 
