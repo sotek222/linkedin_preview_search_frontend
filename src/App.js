@@ -21,11 +21,19 @@ function App() {
   // used to store the state of loader gif in the searchResult component
   const [isLoading, setIsLoading] = useState(false);
 
+  // stores the state of whether or not the url entered was correct
+  const [isUrlValid, setIsUrlValid] = useState(true);
 
   const getLinkedInPreview = (url) => { 
 
+    // Checks if the url that is inputted meets the 
+    // requirements and is valid
     if(validateUrl(url)){
+      // cleans up from any previous invalid URL entrys, to reset the display.
+      setIsUrlValid(true);
+      // begins setting the loader so the spinner gif will display
       setIsLoading(true);
+
       fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -41,17 +49,18 @@ function App() {
       })
       .catch(err => console.error("THERE WAS AN ERROR: ", err));
     } else {
-      // TODO: Show not found error message to user
-      console.log("Url yielded no results");
+      // Sets the state of invalid URL so we can show the user that they entered 
+      // an invalid URL
+      setIsUrlValid(false);
     }
   };
 
   return (
     <>
-      <Header />
+      <Header/>
       <div className="main-container">
         <SearchForm getLinkedInPreview={getLinkedInPreview} />
-        <SearchResults searchResult={searchResult} isLoading={isLoading} />
+        <SearchResults searchResult={searchResult} isLoading={isLoading} isUrlValid={isUrlValid} />
       </div>
     </>
   );
